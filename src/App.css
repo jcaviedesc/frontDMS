@@ -4,9 +4,20 @@
 
 .Container{
   display: flex;
+  align-items: flex-start;
+  /* justify-content: space-around ; 
+  align-items: center;  */
+}
+.column{
   flex-direction: column;
-  justify-content: space-around ; 
-  align-items: center; 
+}
+.row{
+  flex-direction: row;
+}
+.formItem{
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
 }
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
