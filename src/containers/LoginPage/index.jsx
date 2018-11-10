@@ -38,6 +38,9 @@ class LoginPage extends React.Component {
       <div className="LoginConten">
         <div className="Card">
           <div className={['Container column']} >
+             <div className='TitleContainer'>
+               <div className='TitleContainer_text'><span>ingresar</span></div>
+             </div>
             <FormItem
               name='Correo'
               direction='column'

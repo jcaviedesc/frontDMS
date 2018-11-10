@@ -1,16 +1,20 @@
 .App {
-  text-align: center;
+  height: 100%;
+  margin: 10px;
 }
+
 .Card{
   border-radius: 5%;
   border: 1px solid  burlywood;
   padding: 10px;
   margin: 5px;
 }
+
 .LoginConten{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  
 }
 
 .Container{
@@ -48,6 +52,16 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.TitleContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+.TitleContainer .TitleContainer_text{
+  padding: 0 5px;
 }
 
 @keyframes App-logo-spin {
