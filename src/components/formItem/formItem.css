@@ -23,4 +23,5 @@
 .Input-content{
     flex: 2;
     padding: 10px 5px 5px 5px; 
+    flex-direction: column
 }

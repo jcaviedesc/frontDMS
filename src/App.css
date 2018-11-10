@@ -1,6 +1,17 @@
 .App {
   text-align: center;
 }
+.Card{
+  border-radius: 5%;
+  border: 1px solid  burlywood;
+  padding: 10px;
+  margin: 5px;
+}
+.LoginConten{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
 .Container{
   display: flex;
