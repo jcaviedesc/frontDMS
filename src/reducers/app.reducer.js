@@ -3,7 +3,8 @@ import { Map } from 'immutable'
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  setUser: ['user']
+  setUser: ['user'],
+  login: ['email','password']
 })
 
 export const AppTypes = Types

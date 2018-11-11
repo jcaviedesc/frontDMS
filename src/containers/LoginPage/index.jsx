@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import { createForm, formShape } from 'rc-form';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import '../../App.css';
 
 // components
 import FormItem from '../../components/formItem';
+//actions
+import appActions from '../../reducers/app.reducer';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
 class LoginPage extends React.Component {
 
@@ -22,8 +36,13 @@ class LoginPage extends React.Component {
     // this.props.form.setFieldsValue({nombre:this.state.value})
   }
   handleSubmit(event: any) {
+    const { login } = this.props;
     this.props.form.validateFields((error, value) => {
-      console.log(error, value);
+      console.tron.log("errot", error, value);
+      if (!error) {
+        login(value.correo, value.contraseña)
+        console.tron.log("action longinnn",login(value.correo, value.contraseña))
+      }
     });
   }
 
@@ -33,14 +52,15 @@ class LoginPage extends React.Component {
   render() {
     let errors;
     const { getFieldProps, getFieldError, getFieldDecorator } = this.props.form;
+    const { classes } = this.props;
     const handleChange = this.handleChange;
     return (
       <div className="LoginConten">
         <div className="Card">
           <div className={['Container column']} >
-             <div className='TitleContainer'>
-               <div className='TitleContainer_text'><span>ingresar</span></div>
-             </div>
+            <div className='TitleContainer'>
+              <div className='TitleContainer_text'><span>Ingresar</span></div>
+            </div>
             <FormItem
               name='Correo'
               direction='column'
@@ -52,8 +72,7 @@ class LoginPage extends React.Component {
                   rules: [{ type: 'email', message: 'email no valido', required: true }]
                 })(
                   <input
-                    style={{ boxShadow: getFieldError('correo') ? 'red' : '' }}
-                    onChange={(text) => { console.log(text.target.value) }}
+                    className={`Input ${getFieldError('correo') ? 'Input-failed' : ''}`}
                   />
                 )}
               </div>
@@ -73,14 +92,24 @@ class LoginPage extends React.Component {
                 })(
                   <input
                     type='password'
-                    style={{ boxShadow: getFieldError('contraseña') ? 'red' : '' }}
-                    onChange={(text) => { console.log(text.target.value) }}
+                    className={`Input ${getFieldError('contraseña') ? 'Input-failed' : ''}`}
                   />
                 )}
               </div>
               {
                 getFieldError('contraseña') && <span style={{ color: 'red' }}>{getFieldError('contraseña')}</span>
               }
+            </FormItem>
+            <FormItem>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                action={(action) => console.log(action)}
+                onClick={this.handleSubmit }
+              >
+                Primary
+              </Button>
             </FormItem>
             {/* <FormItem
           name='Destino'
@@ -154,5 +183,14 @@ class LoginPage extends React.Component {
     );
   }
 }
+/* Container */
+const mapStateToProps = state => ({
+})
 
-export default createForm()(LoginPage);
+const mapDispatchToProps = dispatch => ({
+  login: (email, password) => dispatch(appActions.login(email, password))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(createForm()(LoginPage))
+);

@@ -13,6 +13,6 @@ import { setAppStatus } from './app.sagas'
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
   yield all([
-    takeEvery(AppTypes.SET_USER, setAppStatus),
+    takeEvery(AppTypes.LOGIN, setAppStatus),
   ])
 }
