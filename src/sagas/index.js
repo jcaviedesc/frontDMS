@@ -1,5 +1,5 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects'
-//import API from 'pads/app/services/api'
+import API from '../services/api'
 
 /* ------------- Types ------------- */
 import { AppTypes } from '../reducers/app.reducer'
@@ -8,11 +8,11 @@ import { AppTypes } from '../reducers/app.reducer'
 import { setAppStatus } from './app.sagas'
 
 
-//export const api = API.create()
+export const api = API.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 export default function* root() {
   yield all([
-    takeEvery(AppTypes.LOGIN, setAppStatus),
+    takeEvery(AppTypes.LOGIN, setAppStatus, api),
   ])
 }

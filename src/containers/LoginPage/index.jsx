@@ -41,7 +41,6 @@ class LoginPage extends React.Component {
       console.tron.log("errot", error, value);
       if (!error) {
         login(value.correo, value.contraseña)
-        console.tron.log("action longinnn",login(value.correo, value.contraseña))
       }
     });
   }
