@@ -40,22 +40,31 @@
 }
 .Input{
   border-color: transparent;
-  border-bottom: 2px solid  #ffc0cb
+  border-bottom: 2px solid  #ff0833b3
 }
 .Input.Input-failed{
-  border-bottom-color: red;
+  border-bottom-color: rgb(255, 0, 64);
 }
 .Input:focus{
-  border-bottom-color: #00fff6;
+  border-bottom-color: #f50057;
+  box-shadow: 0px 6px 10px -3px #f50057;
 }
-.TitleContainer{
+.Text-error{
+  color: rgb(255, 0, 64);
+  font-size: small;
+  font-weight: 400;
+}
+
+.Title_container{
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
 }
-.TitleContainer .TitleContainer_text{
+.Title_container .Title_container_tile{
   padding: 0 5px;
+  color:  #1d1d1d;
+  font-size: 400;
 }
 
 @keyframes App-logo-spin {

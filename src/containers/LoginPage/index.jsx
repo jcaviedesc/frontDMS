@@ -13,6 +13,7 @@ import appActions from '../../reducers/app.reducer';
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
+    width: '90%'
   },
   input: {
     display: 'none',
@@ -57,8 +58,8 @@ class LoginPage extends React.Component {
       <div className="LoginConten">
         <div className="Card">
           <div className={['Container column']} >
-            <div className='TitleContainer'>
-              <div className='TitleContainer_text'><span>Ingresar</span></div>
+            <div className='Title_container'>
+              <div className='Title_container_tile'><span>Ingresar</span></div>
             </div>
             <FormItem
               name='Correo'
@@ -68,7 +69,7 @@ class LoginPage extends React.Component {
                 {getFieldDecorator('correo', {
                   initialValue: '',
                   validateTrigger: 'onBlur',
-                  rules: [{ type: 'email', message: 'email no valido', required: true }]
+                  rules: [{ type: 'email', message: 'Correo no valido', required: true }]
                 })(
                   <input
                     className={`Input ${getFieldError('correo') ? 'Input-failed' : ''}`}
@@ -76,7 +77,7 @@ class LoginPage extends React.Component {
                 )}
               </div>
               {
-                getFieldError('correo') && <span style={{ color: 'red' }}>{getFieldError('correo')}</span>
+                getFieldError('correo') && <span className="Text-error">{getFieldError('correo')}</span>
               }
             </FormItem>
             <FormItem
@@ -96,20 +97,24 @@ class LoginPage extends React.Component {
                 )}
               </div>
               {
-                getFieldError('contraseña') && <span style={{ color: 'red' }}>{getFieldError('contraseña')}</span>
+                getFieldError('contraseña') && <span className="Text-error">{getFieldError('contraseña')}</span>
               }
             </FormItem>
-            <FormItem>
+            <div style={{
+              margin:' auto',
+              width: '90%'}
+            }>
               <Button
                 variant="contained"
                 color="secondary"
                 className={classes.button}
                 action={(action) => console.log(action)}
-                onClick={this.handleSubmit }
+                onClick={this.handleSubmit}
               >
-                Primary
+                Login
               </Button>
-            </FormItem>
+            </div>
+
             {/* <FormItem
           name='Destino'
         >

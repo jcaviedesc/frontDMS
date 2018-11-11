@@ -7,7 +7,7 @@ const FormItem = ({
   name
 }) => (
     <div className={`Container-item ${direction ==='row'?'Row':'Column'}`}>
-      {name&&<div className={'Text-content'}><span>{name}</span></div>}
+      {name&&<div className={'Text_content'}><span className="Text_content_subTitle">{name}</span></div>}
       <div className={'Input-content'}>{children}</div>
     </div>
   )

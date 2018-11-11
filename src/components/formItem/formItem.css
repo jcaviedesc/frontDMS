@@ -13,15 +13,18 @@
     flex-direction: column;
 }
 
-.Text-content{
+.Text_content{
     flex: 1;
-    padding: 10px 5px 5px 5px;
+    padding: 10px 5px 0px 5px;
     justify-content: flex-start;
     align-items: center;
 }
-
+.Text_content .Text_content_subTitle {
+    color: #535353
+}
+  
 .Input-content{
     flex: 2;
-    padding: 10px 5px 5px 5px; 
+    padding: 5px; 
     flex-direction: column
 }
