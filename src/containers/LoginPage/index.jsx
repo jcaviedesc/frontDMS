@@ -108,7 +108,6 @@ class LoginPage extends React.Component {
                   variant="contained"
                   color="secondary"
                   className={classes.button}
-                  action={(action) => console.log(action)}
                   onClick={this.handleSubmit}
                 >
                   Login

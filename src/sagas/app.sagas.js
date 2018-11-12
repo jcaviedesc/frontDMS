@@ -1,13 +1,11 @@
 import { put, call } from 'redux-saga/effects'
+import { push } from 'connected-react-router'
 
 import appActions from '../reducers/app.reducer'
 //import RoutesActions from 'pads/app/reducers/routes.reducer'
 
 export function* setAppStatus(api, { email, password }) {
-  console.tron.log(["haaaa",email, password])
-
   const response = yield call(api.authentication, email, password)
-  console.tron.log(response)
   // if (email === 'admin@concha.com' && password === 'Admin') {
 
   //   yield put({ type: 'x', user: 'd' })
@@ -17,7 +15,9 @@ export function* setAppStatus(api, { email, password }) {
   switch (response.status) {
     case 200:
       const { accessToken } = response.data
+      localStorage.setItem('user', JSON.stringify(accessToken))
       yield put(appActions.setUser({token: accessToken}))
+      yield put(push('/register'))
       break
     case 400:
     case 401:

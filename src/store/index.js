@@ -5,27 +5,31 @@ import { routerMiddleware } from 'connected-react-router'
 
 export default (rootReducer, rootSaga, history) => {
   const middleware = []
-  const enhancers = []
 
   /* ------------- Saga Middleware ------------- */
   // const sagaMonitor =
   //   process.env.NODE_ENV === 'development' ? console.tron.createSagaMonitor() : null
- 
+
   const sagaMiddleware = createSagaMiddleware()
   const routeMiddleware = routerMiddleware(history)
-  middleware.push(sagaMiddleware)
-  middleware.push(routeMiddleware)
   // if (process.env.NODE_ENV === 'development') {
   //   middleware.push(logger)
   // }
   /* ------------- Assemble Middlewares ------------- */
-  enhancers.push(applyMiddleware(...middleware))
-  console.tron.log("dasd",enhancers)
+  middleware.push(sagaMiddleware)
+  middleware.push(routeMiddleware)
+
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+  // in dev mode, we'll create the store through Reactotron
   const createAppropriateStore =
     process.env.NODE_ENV === 'development' ? console.tron.createStore : createStore
-  const store = createAppropriateStore(rootReducer, composeEnhancers(...enhancers))
+  
+  const store = createAppropriateStore(
+    rootReducer,
+    composeEnhancers(
+      applyMiddleware(...middleware))
+  );
 
   sagaMiddleware.run(rootSaga)
 
