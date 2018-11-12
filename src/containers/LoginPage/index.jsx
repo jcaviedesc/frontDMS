@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createForm, formShape } from 'rc-form';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -50,72 +50,72 @@ class LoginPage extends React.Component {
     this.setState({ value: event.target.value });
   }
   render() {
-    let errors;
     const { getFieldProps, getFieldError, getFieldDecorator } = this.props.form;
     const { classes } = this.props;
-    const handleChange = this.handleChange;
     return (
       <div className="LoginConten">
-        <div className="Card">
-          <div className={['Container column']} >
-            <div className='Title_container'>
-              <div className='Title_container_tile'><span>Ingresar</span></div>
-            </div>
-            <FormItem
-              name='Correo'
-              direction='column'
-            >
-              <div>
-                {getFieldDecorator('correo', {
-                  initialValue: '',
-                  validateTrigger: 'onBlur',
-                  rules: [{ type: 'email', message: 'Correo no valido', required: true }]
-                })(
-                  <input
-                    className={`Input ${getFieldError('correo') ? 'Input-failed' : ''}`}
-                  />
-                )}
+        <div className='LoginConten_card_login'>
+          <div className="Card">
+            <div className={['Container column']} >
+              <div className='Title_container'>
+                <div className='Title_container_tile'><span>Ingresar</span></div>
               </div>
-              {
-                getFieldError('correo') && <span className="Text-error">{getFieldError('correo')}</span>
-              }
-            </FormItem>
-            <FormItem
-              name="Contraseña"
-              direction='column'
-            >
-              <div>
-                {getFieldDecorator('contraseña', {
-                  initialValue: '',
-                  validateTrigger: 'onBlur',
-                  rules: [{ required: true, message: 'La contraseña es requerida' }]
-                })(
-                  <input
-                    type='password'
-                    className={`Input ${getFieldError('contraseña') ? 'Input-failed' : ''}`}
-                  />
-                )}
-              </div>
-              {
-                getFieldError('contraseña') && <span className="Text-error">{getFieldError('contraseña')}</span>
-              }
-            </FormItem>
-            <div style={{
-              margin:' auto',
-              width: '90%'}
-            }>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                action={(action) => console.log(action)}
-                onClick={this.handleSubmit}
+              <FormItem
+                name='Correo'
+                direction='column'
               >
-                Login
+                <div>
+                  {getFieldDecorator('correo', {
+                    initialValue: '',
+                    validateTrigger: 'onBlur',
+                    rules: [{ type: 'email', message: 'Correo no valido', required: true }]
+                  })(
+                    <input
+                      className={`Input ${getFieldError('correo') ? 'Input-failed' : ''}`}
+                    />
+                  )}
+                </div>
+                {
+                  getFieldError('correo') && <span className="Text-error">{getFieldError('correo')}</span>
+                }
+              </FormItem>
+              <FormItem
+                name="Contraseña"
+                direction='column'
+              >
+                <div>
+                  {getFieldDecorator('contraseña', {
+                    initialValue: '',
+                    validateTrigger: 'onBlur',
+                    rules: [{ required: true, message: 'Campo requerido' }]
+                  })(
+                    <input
+                      type='password'
+                      className={`Input ${getFieldError('contraseña') ? 'Input-failed' : ''}`}
+                    />
+                  )}
+                </div>
+                {
+                  getFieldError('contraseña') && <span className="Text-error">{getFieldError('contraseña')}</span>
+                }
+              </FormItem>
+              <div style={{
+                margin: ' auto',
+                width: '90%'
+              }
+              }>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  action={(action) => console.log(action)}
+                  onClick={this.handleSubmit}
+                >
+                  Login
               </Button>
-            </div>
+              </div>
 
-            {/* <FormItem
+              {/* <FormItem
           name='Destino'
         >
           <div>
@@ -181,8 +181,10 @@ class LoginPage extends React.Component {
         <div className={'formItem'}>
           <button onClick={this.handleSubmit}>submit</button>
         </div> */}
+            </div>
           </div>
         </div>
+
       </div>
     );
   }
