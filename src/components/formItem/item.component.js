@@ -6,9 +6,13 @@ const FormItem = ({
   children,
   name
 }) => (
-    <div className={`Container-item ${direction ==='row'?'Row':'Column'}`}>
-      {name&&<div className={'Text_content'}><span className="Text_content_subTitle">{name}</span></div>}
-      <div className={'Input-content'}>{children}</div>
+    <div className={`Container_item ${direction === 'row' ? 'Row' : 'Column'}`}>
+      {name && (
+        <div className={'Container_item_contarinertext'}>
+          <span className="contarinertext_subTitle">{name}</span>
+        </div>
+      )}
+      <div className={'Container_item_content_input'}>{children}</div>
     </div>
   )
 

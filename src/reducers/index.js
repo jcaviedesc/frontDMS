@@ -9,11 +9,9 @@ import { reducer as appReducer } from '../reducers/app.reducer'
 
 
 export default (history) => {
-  console.tron.log("history",history, connectRouter(history))
   const rootReducer = combineReducers({
-    // router: connectRouter(history),
     app: appReducer,
   })
-  return rootReducer
-  // return configureStore(rootReducer, rootSaga, history)
+  //return rootReducer
+  return configureStore(connectRouter(history)(rootReducer), rootSaga, history)
 }
