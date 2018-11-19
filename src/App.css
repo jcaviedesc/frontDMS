@@ -21,8 +21,32 @@
   cursor: pointer;
 }
 
+.Text{
+  color: #1d1d1d;
+}
+
 .Dashboard .Card:hover{
   opacity: 0.8;
+}
+.Card .Container-img{
+  height: 60px;
+  justify-content: center;
+  display: flex;
+}
+.Card .Card-button{
+  background-color: transparent;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.Card .Container-img img{
+  height: 100%;
+}
+
+.Card .Card-button:focus{
+  outline: none;
 }
 
 .LoginConten{
@@ -43,12 +67,18 @@
 .Container{
   display: flex;
 }
+
 .column{
   flex-direction: column;
 }
 .row{
   flex-direction: row;
 }
+.Container-Text{
+  justify-content: center;
+  align-items: center;
+}
+
 .formItem{
   display: flex;
   justify-content: space-around;
