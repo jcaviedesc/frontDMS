@@ -24,7 +24,7 @@ export function* setAppStatus(api, { email, password }) {
       console.tron.log(payload, accessToken)
       localStorage.setItem('user', JSON.stringify(accessToken))
       yield put(appActions.setUser(payload))
-      yield put(push('/register'))
+      yield put(push('/dashboard'))
       break 
     case 400:
     case 401:

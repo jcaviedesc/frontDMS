@@ -6,9 +6,23 @@
 .Card{
   border-radius: 12px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 24px -1px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 13px -1px rgba(0, 0, 0, 0.7);
   padding: 10px;
   margin: 5px;
+}
+
+.Dashboard{
+  display: flex;
+  flex-direction: row;
+}
+
+.Dashboard .Card{
+  margin: 10px 15px;
+  cursor: pointer;
+}
+
+.Dashboard .Card:hover{
+  opacity: 0.8;
 }
 
 .LoginConten{
