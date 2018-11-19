@@ -1,0 +1,28 @@
+.Container_item {
+  flex: 1;
+  display: flex;
+  margin: 10px;
+  flex-wrap: wrap; }
+
+.Row {
+  flex-direction: row; }
+
+.Column {
+  flex-direction: column; }
+
+.Container_item_contarinertext {
+  flex: 6 3;
+  padding: 10px 5px 0px 5px;
+  justify-content: flex-start;
+  align-items: center; }
+
+.Container_item_contarinertext .contarinertext_subTitle {
+  color: #535353; }
+
+.Row .Container_item_content_input {
+  margin-left: 40px; }
+
+.Container_item_content_input {
+  flex: 2;
+  padding: 5px;
+  flex-direction: column; }

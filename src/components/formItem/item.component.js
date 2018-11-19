@@ -1,12 +1,18 @@
 import React from 'react';
+import styles from './formItem.module.css';
 import './formItem.css';
 
+const orientation = (direction)=>{
+  console.tron.log(typeof styles.Container_item)
+  const type = direction === 'row' ? styles.Row : styles.Column
+  return `${styles.Container_item} ${type}`
+}
 const FormItem = ({
   direction = 'row',
   children,
   name
 }) => (
-    <div className={`Container_item ${direction === 'row' ? 'Row' : 'Column'}`}>
+    <div className={orientation(direction)}>
       {name && (
         <div className={'Container_item_contarinertext'}>
           <span className="contarinertext_subTitle">{name}</span>
