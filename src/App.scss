@@ -1,0 +1,144 @@
+
+$smartphone: 480px;
+$tabletPortrait: 767px;
+$tabletLandscape: 1024px;
+$desktop: 1174px;
+$largeScreen: 1400px;
+
+@mixin respondTo($media) {
+  @if $media == smartphone {
+    @media (max-width: $smartphone) { @content; }
+  }
+  @else if $media == tablet {
+    @media (min-width: $tabletPortrait) and (max-width: $tabletLandscape) { @content; }
+  }
+  @else if $media == smallScreen {
+    @media (max-width: $desktop) { @content; }
+  }
+  @else if $media == desktop {
+    @media (min-width: $desktop) { @content; }
+  }
+}
+
+/* generales*/
+.App {
+  height: 100%;
+  margin: 10px;
+}
+
+.Container{
+  display: flex;
+  &.column{
+    flex-direction: column;
+  }
+  &.row{
+    flex-direction: row;
+  }
+}
+.Container-Text{
+  justify-content: center;
+  align-items: center;
+}
+
+.formItem{
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+.Input{
+  border-color: transparent;
+  border-bottom: 2px solid  #ff0833b3;
+  &.Input-failed{
+    border-bottom-color: rgb(255, 0, 64);
+  }
+  &:focus{
+    border-bottom-color: #f50057;
+    box-shadow: 0px 6px 3px -4px #f50057;
+    outline:0px;
+  }
+}
+.Text-error{
+  color: rgb(255, 0, 64);
+  font-size: small;
+  font-weight: 400;
+}
+
+.Card{
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 13px -1px rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  margin: 5px;
+  .Card:hover{
+    opacity: 0.8;
+  }
+  .Container-img{
+    height: 60px;
+    justify-content: center;
+    display: flex;
+    img{
+      height: 100%;
+    }
+  }
+  .Card-button{
+    background-color: transparent;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .Card-button:focus{
+    outline: none;
+  }
+}
+
+.Dashboard{
+  display: flex;
+  flex-direction: row;
+  .Card{
+    margin: 10px 15px;
+    cursor: pointer;
+  }
+}
+
+.Text{
+  color: #1d1d1d;
+}
+
+
+
+.LoginConten{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  
+}
+.LoginConten .LoginConten_card_login, .Register_content .Register_content_card{
+  margin: 40px 0px 0px 50px;
+}
+
+.Register_content{
+  display: flex;
+  flex-direction: row;
+}
+
+.Title_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  .Title_container_tile{
+    padding: 0 5px;
+    color:  #1d1d1d;
+    font-size: 400;
+  }
+}
+
+@include respondTo("smartphone") {
+  .Register_content{
+    .Register_content_card{
+      margin: 0;
+    }
+  }
+  
+}

@@ -1,124 +1,94 @@
+/* generales*/
 .App {
   height: 100%;
-  margin: 10px;
-}
+  margin: 10px; }
 
-.Card{
+.Container {
+  display: flex; }
+  .Container.column {
+    flex-direction: column; }
+  .Container.row {
+    flex-direction: row; }
+
+.Container-Text {
+  justify-content: center;
+  align-items: center; }
+
+.formItem {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px; }
+
+.Input {
+  border-color: transparent;
+  border-bottom: 2px solid  #ff0833b3; }
+  .Input.Input-failed {
+    border-bottom-color: #ff0040; }
+  .Input:focus {
+    border-bottom-color: #f50057;
+    box-shadow: 0px 6px 3px -4px #f50057;
+    outline: 0px; }
+
+.Text-error {
+  color: #ff0040;
+  font-size: small;
+  font-weight: 400; }
+
+.Card {
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0px 0px 13px -1px rgba(0, 0, 0, 0.7);
   padding: 10px;
-  margin: 5px;
-}
+  margin: 5px; }
+  .Card .Card:hover {
+    opacity: 0.8; }
+  .Card .Container-img {
+    height: 60px;
+    justify-content: center;
+    display: flex; }
+    .Card .Container-img img {
+      height: 100%; }
+  .Card .Card-button {
+    background-color: transparent;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    cursor: pointer; }
+  .Card .Card-button:focus {
+    outline: none; }
 
-.Dashboard{
+.Dashboard {
+  display: flex;
+  flex-direction: row; }
+  .Dashboard .Card {
+    margin: 10px 15px;
+    cursor: pointer; }
+
+.Text {
+  color: #1d1d1d; }
+
+.LoginConten {
   display: flex;
   flex-direction: row;
-}
+  justify-content: flex-start; }
 
-.Dashboard .Card{
-  margin: 10px 15px;
-  cursor: pointer;
-}
+.LoginConten .LoginConten_card_login, .Register_content .Register_content_card {
+  margin: 40px 0px 0px 50px; }
 
-.Text{
-  color: #1d1d1d;
-}
-
-.Dashboard .Card:hover{
-  opacity: 0.8;
-}
-.Card .Container-img{
-  height: 60px;
-  justify-content: center;
+.Register_content {
   display: flex;
-}
-.Card .Card-button{
-  background-color: transparent;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
+  flex-direction: row; }
 
-.Card .Container-img img{
-  height: 100%;
-}
-
-.Card .Card-button:focus{
-  outline: none;
-}
-
-.LoginConten{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  
-}
-.LoginConten .LoginConten_card_login, .Register_content .Register_content_card{
-  margin: 40px 0px 0px 50px;
-}
-
-.Register_content{
-  display: flex;
-  flex-direction: row;
-}
-
-.Container{
-  display: flex;
-}
-
-.column{
-  flex-direction: column;
-}
-.row{
-  flex-direction: row;
-}
-.Container-Text{
-  justify-content: center;
-  align-items: center;
-}
-
-.formItem{
-  display: flex;
-  justify-content: space-around;
-  margin: 10px;
-}
-.Input{
-  border-color: transparent;
-  border-bottom: 2px solid  #ff0833b3
-}
-.Input.Input-failed{
-  border-bottom-color: rgb(255, 0, 64);
-}
-.Input:focus{
-  border-bottom-color: #f50057;
-  box-shadow: 0px 6px 3px -4px #f50057;
-  outline:0px;
-}
-.Text-error{
-  color: rgb(255, 0, 64);
-  font-size: small;
-  font-weight: 400;
-}
-
-.Title_container{
+.Title_container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-}
-.Title_container .Title_container_tile{
-  padding: 0 5px;
-  color:  #1d1d1d;
-  font-size: 400;
-}
+  margin: 10px; }
+  .Title_container .Title_container_tile {
+    padding: 0 5px;
+    color: #1d1d1d;
+    font-size: 400; }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+@media (max-width: 480px) {
+  .Register_content .Register_content_card {
+    margin: 0; } }
