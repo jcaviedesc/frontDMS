@@ -30,7 +30,7 @@ class RegisterPage extends React.Component {
   }
 
   state = {
-    valueArea:' '
+    valueArea: ' '
   }
 
   static propTypes = {
@@ -41,30 +41,26 @@ class RegisterPage extends React.Component {
     console.tron.log(e.target, 'event')
     this.setState({ value })
   }
-  
-  
+
+
 
   componentDidMount() {
+    const { getAreas } = this.props;
+    getAreas()
     // this.props.form.setFieldsValue({nombre:this.state.value})
   }
   handleSubmit(event: any) {
-    const { login } = this.props;
+    // const { login } = this.props;
     this.props.form.validateFields((error, value) => {
-      console.tron.log("errot", error, value);
       if (!error) {
-        login(value.correo, value.contraseña)
+        console.tron.log("error", error, value);
       }
     });
   }
 
-  handleChange(event) {
-   
-    //this.setState({ value: event.target.value });
-  }
   render() {
     const { getFieldProps, getFieldError, getFieldDecorator } = this.props.form;
-    const { classes, areas } = this.props;
-    const { valueArea, valueRol } = this.state
+    const { classes, areas, roles } = this.props;
     return (
       <div className="Register_content">
         <div className='Register_content_card'>
@@ -156,43 +152,41 @@ class RegisterPage extends React.Component {
               <FormItem
                 name="Area"
               >
-                {/* <div>
+                <div>
                   {getFieldDecorator('area', {
                     initialValue: '',
                     validateTrigger: 'onBlur',
                     rules: [{ required: true }]
                   })(
-                    <Dropdown
-                      id={'zone'}
-                      onChange={this.handleChange}
-                      options={areas}
-                      placeholder='Choose an option'
-                      selection
-                      value={valueArea}
-                    />
+                    <select>
+                      {areas&&areas.map((item)=> <option key={item.id} value={item.id}>{item.name}</option>)}
+                    </select>
                   )}
-                </div> */}
-                <Dropdown
-                  id={'zone'}
-                  onChange={this.handleChange}
-                  options={areas}
-                  placeholder='Choose an option'
-                  selection
-                  value={valueArea}
-                />
+                </div>
+                {/* // <Dropdown
+                //   id={'zone'}
+                //   onChange={this.handleChange}
+                //   options={areas}
+                //   placeholder='Choose an option'
+                //   selection
+                //   value={valueArea}
+                // /> */}
               </FormItem>
 
               <FormItem
                 name="Perfil o Rol"
               >
-                <Dropdown
-                  id={'rol'}
-                  onChange={this.handleChange}
-                  options={areas}
-                  placeholder='Elija un rol'
-                  selection
-                  value={valueRol}
-                />
+               <div>
+                  {getFieldDecorator('area', {
+                    initialValue: '',
+                    validateTrigger: 'onBlur',
+                    rules: [{ required: true }]
+                  })(
+                    <select>
+                      {roles&&roles.map((item)=> <option key={item.id} value={item.id}>{item.value}</option>)}
+                    </select>
+                  )}
+                </div>
               </FormItem>
               <div style={{
                 margin: ' auto',
@@ -222,7 +216,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (email, password) => dispatch(appActions.login(email, password))
+  getAreas: () => dispatch(appActions.getAreas())
 })
 
 const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(

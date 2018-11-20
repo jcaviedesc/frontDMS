@@ -3,7 +3,6 @@ import styles from './formItem.module.css';
 import './formItem.css';
 
 const orientation = (direction)=>{
-  console.tron.log(typeof styles.Container_item)
   const type = direction === 'row' ? styles.Row : styles.Column
   return `${styles.Container_item} ${type}`
 }

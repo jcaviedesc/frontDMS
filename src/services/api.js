@@ -19,8 +19,12 @@ const create = (baseURL = 'http://localhost:5000/api') => {
   const authentication = (email, password) =>
     api.post('/auth/signin', { usernameOrEmail: email, password })
 
+  const getAreas = (authorization) => {
+    api.get('/area',{},setToken(authorization))
+  }
   return {
-    authentication
+    authentication,
+    getAreas
   };
 };
 

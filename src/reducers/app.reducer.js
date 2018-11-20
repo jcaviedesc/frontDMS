@@ -5,6 +5,7 @@ import { Map } from 'immutable'
 const { Types, Creators } = createActions({
   setUser: ['user'],
   login: ['email', 'password'],
+  getAreas: null,
   setAreas: ['areas']
 })
 
@@ -15,7 +16,7 @@ export default Creators
 export const INITIAL_STATE = Map({
   user: {},
   areas: [
-    { key: 1, text: "RRHH", value: 1 },
+    { id: 1, name: "RRHH", value: 1 },
   ]
 })
 

@@ -34,5 +34,26 @@ export function* setAppStatus(api, { email, password }) {
     default:
       // yield put(ListingsActions.isFetching(false))
       console.tron.err(response)
+  }  
+}
+
+export function* setAreasSagas(api, action) {
+  const authentication = localStorage.getItem('user')
+  const response = yield call(api.getAreas, authentication)
+  console.tron.log("response areas",response)
+  switch (response.status) {
+    case 200:
+      console.tron.log("setAreas")
+      yield put(appActions.setAreas(response.data))    
+      break 
+    case 400:
+    case 401:
+    case 403:
+    case 404:
+    case 422:
+    default:
+      // yield put(ListingsActions.isFetching(false))
+      console.tron.err(response)
   }
 }
+
