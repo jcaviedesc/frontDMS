@@ -1,5 +1,6 @@
 import apisauce from 'apisauce'
 ///process.env.REACT_APP_API_URL
+const token = localStorage.getItem('user');
 const create = (baseURL = 'http://localhost:5000/api') => {
   // timeout: 2000
   const api = apisauce.create({
@@ -22,15 +23,17 @@ const create = (baseURL = 'http://localhost:5000/api') => {
   const getAreas = authorization => 
     api.get('/area',{},setToken(authorization))
   
-
   const getProfiles = authorization => 
     api.get('/profile',{},setToken(authorization))
   
-
+  const registerUser = (user) => 
+    api.post('/auth/signup',user,setToken(token))
+  
   return {
     authentication,
     getAreas,
-    getProfiles
+    getProfiles,
+    registerUser
   };
 };
 

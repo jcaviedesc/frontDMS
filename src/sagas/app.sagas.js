@@ -2,6 +2,7 @@ import { put, call } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 
 import appActions from '../reducers/app.reducer'
+import userAction from '../reducers/user.reducer'
 //import RoutesActions from 'pads/app/reducers/routes.reducer'
 
 export function* setAppStatus(api, { email, password }) {
@@ -21,9 +22,9 @@ export function* setAppStatus(api, { email, password }) {
       delete payload.sub
       delete payload.iat
       delete payload.exp
-      console.tron.log(payload, accessToken)
-      localStorage.setItem('user', JSON.stringify(accessToken))
-      yield put(appActions.setUser(payload))
+      console.tron.log(JSON.stringify(accessToken), accessToken)
+      localStorage.setItem('user', accessToken)
+      yield put(userAction.setUser(payload))
       yield put(push('/dashboard'))
       break 
     case 400:

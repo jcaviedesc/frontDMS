@@ -9,6 +9,7 @@ import { Dropdown } from 'semantic-ui-react'
 import FormItem from '../../components/formItem';
 //actions
 import appActions from '../../reducers/app.reducer';
+import userActions from '../../reducers/user.reducer'
 
 const styles = theme => ({
   button: {
@@ -51,10 +52,12 @@ class RegisterPage extends React.Component {
     // this.props.form.setFieldsValue({nombre:this.state.value})
   }
   handleSubmit(event: any) {
-    // const { login } = this.props;
+    const { registerUser } = this.props;
     this.props.form.validateFields((error, value) => {
       if (!error) {
+        this.props.form.setFieldsValue({name:"", lastname:"", username:"", email:""})
         console.tron.log("error", error, value);
+        registerUser(value);
       }
     });
   }
@@ -155,12 +158,12 @@ class RegisterPage extends React.Component {
               >
                 <div>
                   {getFieldDecorator('area', {
-                    initialValue: '',
+                    initialValue: 0,
                     validateTrigger: 'onBlur',
                     rules: [{ required: true }]
                   })(
                     <select>
-                      {areas&&areas.map((item)=> <option key={item.id} value={item.id}>{item.name}</option>)}
+                      {areas && areas.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
                     </select>
                   )}
                 </div>
@@ -177,14 +180,14 @@ class RegisterPage extends React.Component {
               <FormItem
                 name="Perfil o Rol"
               >
-               <div>
-                  {getFieldDecorator('perfil', {
-                    initialValue: '',
+                <div>
+                  {getFieldDecorator('profile', {
+                    initialValue: 0,
                     validateTrigger: 'onBlur',
                     rules: [{ required: true }]
                   })(
                     <select>
-                      {roles&&roles.map((item)=> <option key={item.id} value={item.id}>{item.name}</option>)}
+                      {roles && roles.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
                     </select>
                   )}
                 </div>
@@ -219,10 +222,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getAreas: () => dispatch(appActions.getAreas()),
-  getProfiles: () => dispatch(appActions.getProfiles())
+  getProfiles: () => dispatch(appActions.getProfiles()),
+  registerUser: (user) => dispatch(userActions.registerUser(user))
 })
 
 const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(createForm()(RegisterPage))
+  withStyles(styles)(createForm({
+    validateMessages: {
+      required(field) {
+        return `${field} 必填`;
+      },
+    },
+  })(RegisterPage))
 );
 export { connectedRegisterPage as RegisterPage };
