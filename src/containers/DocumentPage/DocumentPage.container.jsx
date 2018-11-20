@@ -22,7 +22,22 @@ const styles = theme => ({
   },
 });
 
+
 class Document extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { value: '' };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  static propTypes = {
+    form: formShape,
+  };
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
 
   render() {
     const { getFieldProps, getFieldError, getFieldDecorator } = this.props.form;
@@ -36,8 +51,7 @@ class Document extends React.Component {
                 <div className='Title_container_tile'><span>Ingresar</span></div>
               </div>
 
-              <FormItem name='titulo'
-                direction='column'>
+              <FormItem name='titulo'>
                 <div>
                   {getFieldDecorator('titulo', {
                     initialValue: '',
@@ -51,9 +65,86 @@ class Document extends React.Component {
                   }
                 </div>
               </FormItem>
+              <FormItem name='Origen'>
+                <div>
+                  {getFieldDecorator('origen', {
+                    initialValue: '',
+                    onChange(event) {
+                      this.handleChange(event)
+                      console.log(event.target.value)
+                    },
+                    rules: [{ required: true }],
+                  })}
+                    <input className={`Input ${getFieldError('origen') ? 'red' : '' }`}/>
+                  {(getFieldError('origen')) && <span className="Text-error">{getFieldError('origen')}</span>}
+                </div>
+              </FormItem>
+              <FormItem name='Destino'>
+                <div>
+                  {getFieldDecorator('destino', {
+                    initialValue: '',
+                    onChange(event) {
+                      this.handleChange(event)
+                      console.log(event.target.value)
+                    }, // have to write original onChange here if you need
+                    rules: [{ required: true }],
+                  })}
+                    <input className={`Input ${getFieldError('destino') ? 'red' : '' }`}/>
+                  {(getFieldError('destino')) && <span className="Text-error">{getFieldError('destino')}</span>}
+                </div>
+              </FormItem>
+              <FormItem name='Fecha radicacion'>
+                <div>
+                {getFieldDecorator('fecha', {
+                    initialValue: '',
+                    onChange(event) {
+                      this.handleChange(event)
+                      console.log(event.target.value)
+                    },
+                    rules: [{ required: true }],
+                  })}
+                    <input type="date" className={`Input ${getFieldError('fecha') ? 'red' : '' }`}/>
+                  {getFieldError('fecha') && <span className="Text-error">{getFieldError('fecha')}</span>}
+                </div>
+              </FormItem>
+              <FormItem name="Asunto">
+                <div>
+                  <select>
+                    <option>pqrs</option>
+                  </select>
+                </div>
+              </FormItem>
+       
+              <FormItem name='comentarios' >
+                {getFieldDecorator('comentarios', {
+                  initialValue: '',
+                  validateTrigger: 'onBlur',
+                  rules: [{ required: true, message: 'debe ingresar comentarios' }]
+                })(
+                  <input className={`Input ${getFieldError('comentarios') ? 'red' : '' }`}
+                    onChange={(text) => { console.log(text.target.value) }}
+                  />
+                )}
+                {
+                  getFieldError('comentarios') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('comentarios')}</span>
+                }
+              </FormItem>
 
+              <FormItem name='Adjuntos' >
+                {getFieldDecorator('adjuntos', {
+                  initialValue: '',
+                  validateTrigger: 'onBlur',
+                  rules: [{ required: true, message: 'debe ingresar comentarios' }]
+                })(
+                  <input type="file" className={`Input ${getFieldError('adjuntos') ? 'red' : '' }`}
+                    onChange={(text) => { console.log(text.target.value) }}
+                  />
+                )}
+                {
+                  getFieldError('adjuntos') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('adjuntos')}</span>
+                }
+              </FormItem>
 
-              
               <div style={{
                 margin: ' auto',
                 width: '90%'
@@ -63,8 +154,7 @@ class Document extends React.Component {
                   variant="contained"
                   color="secondary"
                   className={classes.button}
-                  onClick={this.handleSubmit}
-                >
+                  onClick={this.handleSubmit}>
                   Login
                   </Button>
               </div>
@@ -88,101 +178,19 @@ const connectedDocumentPage = connect(mapStateToProps, mapDispatchToProps)(
 );
 
 export { connectedDocumentPage as DocumentPage };
-{/* @Column(name="doc_date")
-    @Temporal(TemporalType.DATE)
-    private Date dateDoc;
-
-    @Column(name="doc_date_settled", columnDefinition=DEFAULT_NOW)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateInsertAt;
-
-    @Column(name="doc_origin")
-    private String origin;
-
+{/*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doc_target_usrid", referencedColumnName = "usr_id")
     private User userTarget;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="doc__affair_id")
-    private Affair affair;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="doc_user_receives_id")
-    private User userRecieve;
-
-    @Column(name="doc_number_settled")
-    private int docNumber;
-
-    @Column(name="doc_comments")
-    private String comments;
 
     @Column(name="doc_annexed")
     private String annexe;
   export { Document as DashboardPage};
-    <FormItem
-          name='Destino'
-        >
-          <div>
-            <input {...getFieldProps('destino', {
-              initialValue: 'xxx',
-              valuePropName: 'camilo',
-              onChange(event) {
-                handleChange(event)
-                console.log(event.target.value)
-              }, // have to write original onChange here if you need
-              rules: [{ required: true }],
-            })}
-              style={{ borderColor: getFieldError('destino') ? 'red' : '' }}
-            />
-            {(errors = getFieldError('destino')) ? errors.join(',') : null}
-          </div>
-        </FormItem>
-        <FormItem
-          name="Asunto"
-        >
-          <div>
-            <select>
-              <option>pqrs</option>
-            </select>
-          </div>
-        </FormItem>
-        <FormItem
-          name='apellidos'
-        >
-          <div>
-            <input {...getFieldProps('apellido', {
-              initialValue: 'xxx',
-              valuePropName: 'camilo',
-              onChange(event) {
-                handleChange(event)
-                console.log(event.target.value)
-              }, // have to write original onChange here if you need
-              rules: [{ required: true }],
-            })}
-              style={{ borderColor: getFieldError('apellido') ? 'red' : '' }}
-            />
-            {(errors = getFieldError('apellido')) ? errors.join(',') : null}
-          </div>
-        </FormItem>
+    
+        
 
-        <FormItem
-          name='comentarios'
-        >
-          {getFieldDecorator('comentarios', {
-            initialValue: '',
-            validateTrigger: 'onBlur',
-            rules: [{ required: true, message: 'debe ingresar comentarios' }]
-          })(
-            <input
-              style={{ boxShadow: getFieldError('comentarios') ? 'red' : '' }}
-              onChange={(text) => { console.log(text.target.value) }}
-            />
-          )}
-          {
-            getFieldError('comentarios') && <span style={{ color: 'red' }}>{getFieldError('comentarios')}</span>
-          }
-        </FormItem>
+        
         <div className={'formItem'}>
           <button onClick={this.handleSubmit}>submit</button>
         </div> */}
