@@ -7,7 +7,7 @@ import { UserTypes } from '../reducers/user.reducer'
 
 /* ------------- Sagas ------------- */
 import { setAppStatus, setAreasSagas, setProfilesSagas, createRadicationSagas, getAllAffairSagas } from './app.sagas'
-import { registerUserSagas } from './user.sagas'
+import { registerUserSagas, getUsersSagas } from './user.sagas'
 
 
 export const api = API.create()
@@ -20,6 +20,7 @@ export default function* root() {
     takeEvery(AppTypes.GET_PROFILES, setProfilesSagas, api),
     takeEvery(UserTypes.REGISTER_USER, registerUserSagas, api),
     takeEvery(AppTypes.GET_ALL_AFFAIRS, getAllAffairSagas, api),
-    takeEvery(AppTypes.CREATE_RADICATION, createRadicationSagas, api)
+    takeEvery(AppTypes.CREATE_RADICATION, createRadicationSagas, api),
+    takeEvery(UserTypes.GET_ALL_USERS, getUsersSagas, api)
   ])
 }

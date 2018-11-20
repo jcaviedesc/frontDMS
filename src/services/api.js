@@ -31,12 +31,15 @@ const create = (baseURL = 'http://localhost:5000/api') => {
 
   const getAllAffairs = () => api.get('/affair',{},setToken(token))
 
+  const getUsers = () => api.get('/users',{},setToken(token))
+
   return {
     authentication,
     getAreas,
     getProfiles,
     registerUser,
-    getAllAffairs
+    getAllAffairs,
+    getUsers
   };
 };
 

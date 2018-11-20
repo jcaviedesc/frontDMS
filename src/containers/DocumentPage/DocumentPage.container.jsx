@@ -11,6 +11,7 @@ import FormItem from '../../components/formItem';
 
 // actions 
 import appActions from '../../reducers/app.reducer';
+import userActions from '../../reducers/user.reducer';
 
 const styles = theme => ({
   button: {
@@ -22,6 +23,22 @@ const styles = theme => ({
   },
 });
 
+function getFileValueProps(value) {
+  if (value && value.target) {
+    return {
+      value: value.target.value,
+    };
+  }
+  return {
+    value,
+  };
+}
+
+function getValueFromFileEvent({ target }) {
+  return {
+    target,
+  };
+}
 
 class Document extends React.Component {
 
@@ -36,24 +53,25 @@ class Document extends React.Component {
   };
 
   componentDidMount() {
-    const { getAffairs } = this.props;
+    const { getAffairs, getAllUsers } = this.props;
     getAffairs()
+    getAllUsers()
   }
 
   handleSubmit(event: any) {
     //const { registerUser } = this.props;
     this.props.form.validateFields((error, value) => {
       if (!error) {
-        this.props.form.setFieldsValue({ name: "", lastname: "", username: "", email: "" })
-        console.tron.log("error", error, value);
+        this.props.form.setFieldsValue({ title: "", origin: "", dateDoc: "", comments: "", annexe: "" })
+        //console.tron.log("error", error, value);
 
       }
     });
   }
 
   render() {
-    const { getFieldError, getFieldDecorator } = this.props.form;
-    const { classes, affairs } = this.props;
+    const { getFieldError, getFieldDecorator, getFieldProps } = this.props.form;
+    const { classes, affairs, usersTarget } = this.props;
     return (
       <div className="LoginConten">
         <div className='LoginConten_card_login'>
@@ -63,96 +81,109 @@ class Document extends React.Component {
                 <div className='Title_container_tile'><span>Radicar Documento</span></div>
               </div>
 
-              <FormItem name='titulo'>
+              <FormItem name='Titulo'>
                 <div>
-                  {getFieldDecorator('titulo', {
+                  {getFieldDecorator('title', {
                     initialValue: '',
                     validateTrigger: 'onBlur',
                     rules: [{ message: 'Campo Requerido', required: true }]
                   })(
-                    <input className={`Input ${getFieldError('titulo') ? 'Input-failed' : ''}`} />
-                  )}
-                  {
-                    getFieldError('titulo') && <span className="Text-error">{getFieldError('titulo')}</span>
-                  }
-                </div>
-              </FormItem>
-              <FormItem name='Origen'>
-                <div>
-                  {getFieldDecorator('origen', {
-                    initialValue: '',
-                    rules: [{ required: true }],
-                  })(
-                    <input className={`Input ${getFieldError('origen') ? 'red' : ''}`} />
+                    <input className={`Input ${getFieldError('title') ? 'Input-failed' : ''}`} />
                   )}
                 </div>
                 {
-                  getFieldError('origen') && <span className="Text-error">{getFieldError('origen')}</span>
+                  getFieldError('title') && <span className="Text-error">{getFieldError('title')}</span>
+                }
+              </FormItem>
+              <FormItem name='Origen'>
+                <div>
+                  {getFieldDecorator('origin', {
+                    initialValue: '',
+                    rules: [{ required: true }],
+                  })(
+                    <input className={`Input ${getFieldError('origin') ? 'red' : ''}`} />
+                  )}
+                </div>
+                {
+                  getFieldError('origin') && <span className="Text-error">{getFieldError('origin')}</span>
                 }
               </FormItem>
               <FormItem name='Destino'>
                 <div>
-                  {getFieldDecorator('destino', {
+                  {getFieldDecorator('userTarget', {
                     initialValue: '',
                     // have to write original onChange here if you need
                     rules: [{ required: true }],
                   })(
-                    <input className={`Input ${getFieldError('destino') ? 'red' : ''}`} />
+                    <select>
+                      {usersTarget && usersTarget.map(user => <option key={user.id} value={user.id}>{user.name}</option>)}
+                    </select>
                   )}
                 </div>
                 {
-                  getFieldError('destino') && <span className="Text-error">{getFieldError('destino')}</span>
+                  getFieldError('userTarget') && <span className="Text-error">{getFieldError('userTarget')}</span>
                 }
               </FormItem>
               <FormItem name='Fecha Documento'>
                 <div>
-                  {getFieldDecorator('fecha', {
+                  {getFieldDecorator('dateDoc', {
                     initialValue: '',
                     rules: [{ required: true }],
                   })(
-                    <input type="date" className={`Input ${getFieldError('fecha') ? 'red' : ''}`} />
+                    <input type="date" className={`Input ${getFieldError('dateDoc') ? 'red' : ''}`} />
                   )}
-                  {
-                    getFieldError('fecha') && <span className="Text-error">{getFieldError('fecha')}</span>
-                  }
                 </div>
+                {
+                  getFieldError('dateDoc') && <span className="Text-error">{getFieldError('dateDoc')}</span>
+                }
               </FormItem>
               <FormItem name="Asunto">
                 <div>
-                  <select>
-                    {affairs && affairs.map((affair) => <option key={affair.id} value={affair.id}>{affair.name}</option> )}
-                  </select>
+                  {getFieldDecorator('affair', {
+                    initialValue: '',
+                    // have to write original onChange here if you need
+                    rules: [{ required: true }],
+                  })(
+                    <select>
+                      {affairs && affairs.map((affair) => <option key={affair.id} value={affair.id}>{affair.name}</option>)}
+                    </select>
+                  )}
                 </div>
+                {
+                  getFieldError('affair') && <span className="Text-error">{getFieldError('affair')}</span>
+                }
               </FormItem>
 
               <FormItem name='comentarios' >
-                {getFieldDecorator('comentarios', {
-                  initialValue: '',
-                  validateTrigger: 'onBlur',
-                  rules: [{ required: true, message: 'debe ingresar comentarios' }]
-                })(
-                  <textarea
-                    id="comments"
-                    rows="3"
-                    cols="20"
-                    className={`TextArea ${getFieldError('comentarios') ? 'red' : ''}`}
-                  />
-                )}
+                <div>
+                  {getFieldDecorator('comments', {
+                    initialValue: '',
+                    validateTrigger: 'onBlur',
+                    rules: [{ required: true, message: 'debe ingresar comments' }]
+                  })(
+                    <textarea
+                      id="comments"
+                      rows="3"
+                      cols="20"
+                      className={`TextArea ${getFieldError('comments') ? 'red' : ''}`}
+                    />
+                  )}
+                </div>
                 {
-                  getFieldError('comentarios') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('comentarios')}</span>
+                  getFieldError('comments') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('comments')}</span>
                 }
               </FormItem>
 
               <FormItem name='Adjuntos' >
-                {getFieldDecorator('adjuntos', {
-                  initialValue: '',
-                  validateTrigger: 'onBlur',
-                  rules: [{ required: true, message: 'debe cargar un archivo' }]
-                })(
-                  <input type="file" />
-                )}
+                <div>
+                  <input type="file" {...getFieldProps('annexe', {
+                    getValueProps: getFileValueProps,
+                    getValueFromEvent: getValueFromFileEvent,
+                  })}
+                  />
+                </div>
                 {
-                  getFieldError('adjuntos') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('adjuntos')}</span>
+                  getFieldError('annexe') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('annexe')}</span>
                 }
               </FormItem>
 
@@ -179,11 +210,13 @@ class Document extends React.Component {
 }
 /* Container */
 const mapStateToProps = state => ({
-  affairs: state.app.get('affairs')
+  affairs: state.app.get('affairs'),
+  usersTarget: state.user.get('allUsers')
 })
 
 const mapDispatchToProps = dispatch => ({
-  getAffairs: () => dispatch(appActions.getAllAffairs())
+  getAffairs: () => dispatch(appActions.getAllAffairs()),
+  getAllUsers: () => dispatch(userActions.getAllUsers())
 })
 
 const connectedDocumentPage = connect(mapStateToProps, mapDispatchToProps)(

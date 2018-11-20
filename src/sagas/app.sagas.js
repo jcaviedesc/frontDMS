@@ -7,12 +7,6 @@ import userAction from '../reducers/user.reducer'
 
 export function* setAppStatus(api, { email, password }) {
   const response = yield call(api.authentication, email, password)
-  // if (email === 'admin@concha.com' && password === 'Admin') {
-
-  //   yield put({ type: 'x', user: 'd' })
-  // } else {
-  //   console.warn('bad credentials') // eslint-disable-line
-  // }
   switch (response.status) {
     case 200:
       const { accessToken } = response.data
