@@ -35,6 +35,11 @@ class Document extends React.Component {
     form: formShape,
   };
 
+  componentDidMount() {
+    const { getAffairs } = this.props;
+    getAffairs()
+  }
+
   handleSubmit(event: any) {
     //const { registerUser } = this.props;
     this.props.form.validateFields((error, value) => {
@@ -48,7 +53,7 @@ class Document extends React.Component {
 
   render() {
     const { getFieldError, getFieldDecorator } = this.props.form;
-    const { classes } = this.props;
+    const { classes, affairs } = this.props;
     return (
       <div className="LoginConten">
         <div className='LoginConten_card_login'>
@@ -99,7 +104,7 @@ class Document extends React.Component {
                   getFieldError('destino') && <span className="Text-error">{getFieldError('destino')}</span>
                 }
               </FormItem>
-              <FormItem name='Fecha radicacion'>
+              <FormItem name='Fecha Documento'>
                 <div>
                   {getFieldDecorator('fecha', {
                     initialValue: '',
@@ -115,7 +120,7 @@ class Document extends React.Component {
               <FormItem name="Asunto">
                 <div>
                   <select>
-                    <option>pqrs</option>
+                    {affairs && affairs.map((affair) => <option key={affair.id} value={affair.id}>{affair.name}</option> )}
                   </select>
                 </div>
               </FormItem>
@@ -126,10 +131,10 @@ class Document extends React.Component {
                   validateTrigger: 'onBlur',
                   rules: [{ required: true, message: 'debe ingresar comentarios' }]
                 })(
-                  <textarea 
-                    id="comments" 
-                    rows="3" 
-                    cols="20" 
+                  <textarea
+                    id="comments"
+                    rows="3"
+                    cols="20"
                     className={`TextArea ${getFieldError('comentarios') ? 'red' : ''}`}
                   />
                 )}
@@ -174,9 +179,11 @@ class Document extends React.Component {
 }
 /* Container */
 const mapStateToProps = state => ({
+  affairs: state.app.get('affairs')
 })
 
 const mapDispatchToProps = dispatch => ({
+  getAffairs: () => dispatch(appActions.getAllAffairs())
 })
 
 const connectedDocumentPage = connect(mapStateToProps, mapDispatchToProps)(

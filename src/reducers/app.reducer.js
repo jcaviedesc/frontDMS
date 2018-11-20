@@ -7,7 +7,10 @@ const { Types, Creators } = createActions({
   getAreas: null,
   setAreas: ['areas'],
   getProfiles: null,
-  setProfiles: ['profiles']
+  setProfiles: ['profiles'],
+  createRadication: ['document'],
+  getAllAffairs: null,
+  setAllAffairs: ['affairs']
 })
 
 export const AppTypes = Types
@@ -18,7 +21,8 @@ export const INITIAL_STATE = Map({
   areas: [
     { id: 1, name: "RRHH", value: 1 },
   ],
-  profiles: []
+  profiles: [],
+  affairs:[]
 })
 
 /* ------------- Reducers ------------- */
@@ -33,8 +37,13 @@ const setProfiles = (state, { profiles }) =>
     profiles
   }))
 
+const setAllAffairs = (state, { affairs }) =>
+  state.mergeDeep(Map({
+    affairs
+  }))
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_AREAS]: setAreas,
-  [Types.SET_PROFILES]: setProfiles
+  [Types.SET_PROFILES]: setProfiles,
+  [Types.SET_ALL_AFFAIRS]: setAllAffairs
 })

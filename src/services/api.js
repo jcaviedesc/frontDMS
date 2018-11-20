@@ -28,12 +28,15 @@ const create = (baseURL = 'http://localhost:5000/api') => {
   
   const registerUser = (user) => 
     api.post('/auth/signup',user,setToken(token))
-  
+
+  const getAllAffairs = () => api.get('/affair',{},setToken(token))
+
   return {
     authentication,
     getAreas,
     getProfiles,
-    registerUser
+    registerUser,
+    getAllAffairs
   };
 };
 
