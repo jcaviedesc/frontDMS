@@ -12,6 +12,7 @@ import LoginPage from '../containers/LoginPage';
 import HomePage from '../containers/HomePage';
 import { RegisterPage } from '../containers/RegisterPage';
 import { DashboardPage } from '../containers/DashBoard';
+import { DocumentPage } from '../containers/DocumentPage';
 
 
 
@@ -26,6 +27,7 @@ const Router = () => (
       <PrivateRoute exact path="/dashboard" component={DashboardPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
+      <Route path="/document" component={DocumentPage} />
     </ConnectedSwitch>
   </div>
 );
