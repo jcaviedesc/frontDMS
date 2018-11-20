@@ -14,11 +14,6 @@
   justify-content: center;
   align-items: center; }
 
-.formItem {
-  display: flex;
-  justify-content: space-around;
-  margin: 10px; }
-
 .Input {
   border-color: transparent;
   border-bottom: 2px solid  #ff0833b3; }
@@ -28,6 +23,9 @@
     border-bottom-color: #f50057;
     box-shadow: 0px 6px 3px -4px #f50057;
     outline: 0px; }
+
+.TextArea {
+  border: 1px solid #ff0833b3; }
 
 .Text-error {
   color: #ff0040;

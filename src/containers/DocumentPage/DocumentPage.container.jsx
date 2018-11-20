@@ -28,27 +28,34 @@ class Document extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: '' };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static propTypes = {
     form: formShape,
   };
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  handleSubmit(event: any) {
+    //const { registerUser } = this.props;
+    this.props.form.validateFields((error, value) => {
+      if (!error) {
+        this.props.form.setFieldsValue({ name: "", lastname: "", username: "", email: "" })
+        console.tron.log("error", error, value);
+
+      }
+    });
   }
 
   render() {
-    const { getFieldProps, getFieldError, getFieldDecorator } = this.props.form;
+    const { getFieldError, getFieldDecorator } = this.props.form;
     const { classes } = this.props;
     return (
       <div className="LoginConten">
         <div className='LoginConten_card_login'>
-          <div className="Card">
+          <Card>
             <div className={['Container column']} >
               <div className='Title_container'>
-                <div className='Title_container_tile'><span>Ingresar</span></div>
+                <div className='Title_container_tile'><span>Radicar Documento</span></div>
               </div>
 
               <FormItem name='titulo'>
@@ -69,42 +76,40 @@ class Document extends React.Component {
                 <div>
                   {getFieldDecorator('origen', {
                     initialValue: '',
-                    onChange(event) {
-                      this.handleChange(event)
-                      console.log(event.target.value)
-                    },
                     rules: [{ required: true }],
-                  })}
-                    <input className={`Input ${getFieldError('origen') ? 'red' : '' }`}/>
-                  {(getFieldError('origen')) && <span className="Text-error">{getFieldError('origen')}</span>}
+                  })(
+                    <input className={`Input ${getFieldError('origen') ? 'red' : ''}`} />
+                  )}
                 </div>
+                {
+                  getFieldError('origen') && <span className="Text-error">{getFieldError('origen')}</span>
+                }
               </FormItem>
               <FormItem name='Destino'>
                 <div>
                   {getFieldDecorator('destino', {
                     initialValue: '',
-                    onChange(event) {
-                      this.handleChange(event)
-                      console.log(event.target.value)
-                    }, // have to write original onChange here if you need
+                    // have to write original onChange here if you need
                     rules: [{ required: true }],
-                  })}
-                    <input className={`Input ${getFieldError('destino') ? 'red' : '' }`}/>
-                  {(getFieldError('destino')) && <span className="Text-error">{getFieldError('destino')}</span>}
+                  })(
+                    <input className={`Input ${getFieldError('destino') ? 'red' : ''}`} />
+                  )}
                 </div>
+                {
+                  getFieldError('destino') && <span className="Text-error">{getFieldError('destino')}</span>
+                }
               </FormItem>
               <FormItem name='Fecha radicacion'>
                 <div>
-                {getFieldDecorator('fecha', {
+                  {getFieldDecorator('fecha', {
                     initialValue: '',
-                    onChange(event) {
-                      this.handleChange(event)
-                      console.log(event.target.value)
-                    },
                     rules: [{ required: true }],
-                  })}
-                    <input type="date" className={`Input ${getFieldError('fecha') ? 'red' : '' }`}/>
-                  {getFieldError('fecha') && <span className="Text-error">{getFieldError('fecha')}</span>}
+                  })(
+                    <input type="date" className={`Input ${getFieldError('fecha') ? 'red' : ''}`} />
+                  )}
+                  {
+                    getFieldError('fecha') && <span className="Text-error">{getFieldError('fecha')}</span>
+                  }
                 </div>
               </FormItem>
               <FormItem name="Asunto">
@@ -114,15 +119,18 @@ class Document extends React.Component {
                   </select>
                 </div>
               </FormItem>
-       
+
               <FormItem name='comentarios' >
                 {getFieldDecorator('comentarios', {
                   initialValue: '',
                   validateTrigger: 'onBlur',
                   rules: [{ required: true, message: 'debe ingresar comentarios' }]
                 })(
-                  <input className={`Input ${getFieldError('comentarios') ? 'red' : '' }`}
-                    onChange={(text) => { console.log(text.target.value) }}
+                  <textarea 
+                    id="comments" 
+                    rows="3" 
+                    cols="20" 
+                    className={`TextArea ${getFieldError('comentarios') ? 'red' : ''}`}
                   />
                 )}
                 {
@@ -134,11 +142,9 @@ class Document extends React.Component {
                 {getFieldDecorator('adjuntos', {
                   initialValue: '',
                   validateTrigger: 'onBlur',
-                  rules: [{ required: true, message: 'debe ingresar comentarios' }]
+                  rules: [{ required: true, message: 'debe cargar un archivo' }]
                 })(
-                  <input type="file" className={`Input ${getFieldError('adjuntos') ? 'red' : '' }`}
-                    onChange={(text) => { console.log(text.target.value) }}
-                  />
+                  <input type="file" />
                 )}
                 {
                   getFieldError('adjuntos') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('adjuntos')}</span>
@@ -159,7 +165,7 @@ class Document extends React.Component {
                   </Button>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
 
       </div>
@@ -178,19 +184,3 @@ const connectedDocumentPage = connect(mapStateToProps, mapDispatchToProps)(
 );
 
 export { connectedDocumentPage as DocumentPage };
-{/*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doc_target_usrid", referencedColumnName = "usr_id")
-    private User userTarget;
-
-
-    @Column(name="doc_annexed")
-    private String annexe;
-  export { Document as DashboardPage};
-    
-        
-
-        
-        <div className={'formItem'}>
-          <button onClick={this.handleSubmit}>submit</button>
-        </div> */}

@@ -11,7 +11,7 @@ const FormItem = ({
   children,
   name
 }) => (
-    <div className={orientation(direction)}>
+    <div className={`Container_item ${direction === 'row'?'Row':'Column'}`}>
       {name && (
         <div className={'Container_item_contarinertext'}>
           <span className="contarinertext_subTitle">{name}</span>
