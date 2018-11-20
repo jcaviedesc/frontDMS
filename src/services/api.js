@@ -33,8 +33,13 @@ const create = (baseURL = 'http://localhost:5000/api') => {
   const getAllAffairs = () => api.get('/affair',{},setToken(token))
 
   const getUsers = () => api.get('/users',{},setToken(token))
-
-  const createRadication= (info, file) => api.post(`/document?document=camilo`,{},setToken(token))
+  // title="camilo"&dateDoc="2018-11-08"&origin="casamonte"
+  // &userTarget="4d28f159-9c78-4147-b9a3-68930fdd289e"&affair=4&userRecieve="2c676262-4521-45e9-a79b-9c3384b4d05b"
+  // &comments="un comment"
+ 
+  const createRadication= (info, file) => 
+  api.post(`/document?title="${info.title}"&dateDoc="${info.dateDoc}"&origin="${info.origin}"
+  &userTarget="${info.userTarget}"&affair="${info.affair}"&comments="${info.comments}"&userRecieve="${info.userRecieve}"`,file,setToken(token))
 
   return {
     authentication,

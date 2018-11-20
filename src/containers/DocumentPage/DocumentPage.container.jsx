@@ -232,7 +232,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getAffairs: () => dispatch(appActions.getAllAffairs()),
   getAllUsers: () => dispatch(userActions.getAllUsers()),
-  createRadication: (document) => dispatch(appActions.createRadication(document))
+  createRadication: (info,document) => dispatch(appActions.createRadication(info,document))
 })
 
 const connectedDocumentPage = connect(mapStateToProps, mapDispatchToProps)(

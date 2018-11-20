@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects'
+import { put, call, select } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 
 import appActions from '../reducers/app.reducer'
@@ -93,9 +93,10 @@ export function* getAllAffairSagas(api, action) {
  */
 export function* createRadicationSagas(api, action) {
   const { documentInfo, file } = action
-  const data = `${JSON.stringify(documentInfo)}`
-  console.log(JSON.stringify(documentInfo))
-  const response = yield call(api.createRadication, data, file)
+  const user = yield select(state => state.user.get('user'))
+  console.log(action)
+  documentInfo.userRecieve = "2c676262-4521-45e9-a79b-9c3384b4d05b"
+  const response = yield call(api.createRadication, documentInfo, file)
   switch (response.status) {
     case 200:
       const { roles } = response.data
