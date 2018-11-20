@@ -8,7 +8,7 @@ const { Types, Creators } = createActions({
   setAreas: ['areas'],
   getProfiles: null,
   setProfiles: ['profiles'],
-  createRadication: ['document'],
+  createRadication: ['documentInfo',"file"],
   getAllAffairs: null,
   setAllAffairs: ['affairs']
 })

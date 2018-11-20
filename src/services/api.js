@@ -7,7 +7,8 @@ const create = (baseURL = 'http://localhost:5000/api') => {
     baseURL,
     timeout: 15000,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "multipart/form-data",
+      "Access-Control-Allow-Origin": '*',
       Accept: 'application/json'
     }
   });
@@ -33,13 +34,16 @@ const create = (baseURL = 'http://localhost:5000/api') => {
 
   const getUsers = () => api.get('/users',{},setToken(token))
 
+  const createRadication= (info, file) => api.post(`/document?document=camilo`,{},setToken(token))
+
   return {
     authentication,
     getAreas,
     getProfiles,
     registerUser,
     getAllAffairs,
-    getUsers
+    getUsers,
+    createRadication
   };
 };
 

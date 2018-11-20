@@ -92,8 +92,10 @@ export function* getAllAffairSagas(api, action) {
  * obtien los datos del form document y se conecta con el api para crear un radicado
  */
 export function* createRadicationSagas(api, action) {
-  const authentication = localStorage.getItem('user')
-  const response = yield call(api.getProfiles, authentication)
+  const { documentInfo, file } = action
+  const data = `${JSON.stringify(documentInfo)}`
+  console.log(JSON.stringify(documentInfo))
+  const response = yield call(api.createRadication, data, file)
   switch (response.status) {
     case 200:
       const { roles } = response.data

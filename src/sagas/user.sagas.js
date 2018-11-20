@@ -24,6 +24,8 @@ export function* getUsersSagas(api, action) {
         break 
       case 400:
       case 401:
+        yield put({Type:"UNAUTHORIZE"})
+        break
       case 403:
       case 404:
       case 422:

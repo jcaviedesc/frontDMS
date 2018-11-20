@@ -59,10 +59,16 @@ class Document extends React.Component {
   }
 
   handleSubmit(event: any) {
-    //const { registerUser } = this.props;
-    this.props.form.validateFields((error, value) => {
+    event.preventDefault();
+    console.tron.log("arrancamos submit")
+    const { createRadication } = this.props;
+    this.props.form.validateFields((error, values) => {
       if (!error) {
         this.props.form.setFieldsValue({ title: "", origin: "", dateDoc: "", comments: "", annexe: "" })
+        const file = new FormData();
+        file.append('file', values.annexe.target.files[0]);
+        delete values.annexe
+        createRadication(values, file)
         //console.tron.log("error", error, value);
 
       }
@@ -176,11 +182,20 @@ class Document extends React.Component {
 
               <FormItem name='Adjuntos' >
                 <div>
-                  <input type="file" {...getFieldProps('annexe', {
+                  {getFieldDecorator("annexe", {
+                    initialValue: '',
+                    validateTrigger: 'onBlur',
+                    rules: [{ required: true, message: 'debe cargar un archivo' }],
                     getValueProps: getFileValueProps,
                     getValueFromEvent: getValueFromFileEvent,
+                  })(
+                    <input id="annexe" type="file" />
+                  )}
+                  {/* <input id="annexe" type="file" {...getFieldProps('annexe', {
+                   
+                    
                   })}
-                  />
+                  /> */}
                 </div>
                 {
                   getFieldError('annexe') && <span className=" Text-error" style={{ color: 'red' }}>{getFieldError('annexe')}</span>
@@ -197,7 +212,7 @@ class Document extends React.Component {
                   color="secondary"
                   className={classes.button}
                   onClick={this.handleSubmit}>
-                  Login
+                  Registrar
                   </Button>
               </div>
             </div>
@@ -216,7 +231,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getAffairs: () => dispatch(appActions.getAllAffairs()),
-  getAllUsers: () => dispatch(userActions.getAllUsers())
+  getAllUsers: () => dispatch(userActions.getAllUsers()),
+  createRadication: (document) => dispatch(appActions.createRadication(document))
 })
 
 const connectedDocumentPage = connect(mapStateToProps, mapDispatchToProps)(
