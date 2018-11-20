@@ -14,17 +14,23 @@ const create = (baseURL = 'http://localhost:5000/api') => {
   if (process.env.NODE_ENV === 'development' && console.tron) {
     api.addMonitor(console.tron.apisauce)
   }
-  const setToken = authorization => (authorization ? { headers: { authorization } } : {})
+  const setToken = authorization => (authorization ? { headers: { authorization: `Bearer ${authorization}` } } : {})
 
   const authentication = (email, password) =>
     api.post('/auth/signin', { usernameOrEmail: email, password })
 
-  const getAreas = (authorization) => {
+  const getAreas = authorization => 
     api.get('/area',{},setToken(authorization))
-  }
+  
+
+  const getProfiles = authorization => 
+    api.get('/profile',{},setToken(authorization))
+  
+
   return {
     authentication,
-    getAreas
+    getAreas,
+    getProfiles
   };
 };
 

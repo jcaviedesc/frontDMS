@@ -40,11 +40,29 @@ export function* setAppStatus(api, { email, password }) {
 export function* setAreasSagas(api, action) {
   const authentication = localStorage.getItem('user')
   const response = yield call(api.getAreas, authentication)
-  console.tron.log("response areas",response)
   switch (response.status) {
     case 200:
-      console.tron.log("setAreas")
-      yield put(appActions.setAreas(response.data))    
+      const { affairs } = response.data;
+      yield put(appActions.setAreas(affairs))    
+      break 
+    case 400:
+    case 401:
+    case 403:
+    case 404:
+    case 422:
+    default:
+      // yield put(ListingsActions.isFetching(false))
+      console.tron.err(response)
+  }
+}
+
+export function* setProfilesSagas(api, action) {
+  const authentication = localStorage.getItem('user')
+  const response = yield call(api.getProfiles, authentication)
+  switch (response.status) {
+    case 200:
+      const { roles } = response.data
+      yield put(appActions.setProfiles(roles))    
       break 
     case 400:
     case 401:

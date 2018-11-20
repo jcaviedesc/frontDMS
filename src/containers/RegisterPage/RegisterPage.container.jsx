@@ -45,8 +45,9 @@ class RegisterPage extends React.Component {
 
 
   componentDidMount() {
-    const { getAreas } = this.props;
+    const { getAreas, getProfiles } = this.props;
     getAreas()
+    getProfiles()
     // this.props.form.setFieldsValue({nombre:this.state.value})
   }
   handleSubmit(event: any) {
@@ -177,13 +178,13 @@ class RegisterPage extends React.Component {
                 name="Perfil o Rol"
               >
                <div>
-                  {getFieldDecorator('area', {
+                  {getFieldDecorator('perfil', {
                     initialValue: '',
                     validateTrigger: 'onBlur',
                     rules: [{ required: true }]
                   })(
                     <select>
-                      {roles&&roles.map((item)=> <option key={item.id} value={item.id}>{item.value}</option>)}
+                      {roles&&roles.map((item)=> <option key={item.id} value={item.id}>{item.name}</option>)}
                     </select>
                   )}
                 </div>
@@ -212,11 +213,13 @@ class RegisterPage extends React.Component {
 }
 /* Container */
 const mapStateToProps = state => ({
-  areas: state.app.get('areas')
+  areas: state.app.get('areas'),
+  roles: state.app.get('profiles')
 })
 
 const mapDispatchToProps = dispatch => ({
-  getAreas: () => dispatch(appActions.getAreas())
+  getAreas: () => dispatch(appActions.getAreas()),
+  getProfiles: () => dispatch(appActions.getProfiles())
 })
 
 const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(

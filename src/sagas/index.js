@@ -5,7 +5,7 @@ import API from '../services/api'
 import { AppTypes } from '../reducers/app.reducer'
 
 /* ------------- Sagas ------------- */
-import { setAppStatus, setAreasSagas } from './app.sagas'
+import { setAppStatus, setAreasSagas, setProfilesSagas } from './app.sagas'
 
 
 export const api = API.create()
@@ -14,6 +14,7 @@ export const api = API.create()
 export default function* root() {
   yield all([
     takeEvery(AppTypes.LOGIN, setAppStatus, api),
-    takeEvery(AppTypes.GET_AREAS, setAreasSagas, api)
+    takeEvery(AppTypes.GET_AREAS, setAreasSagas, api),
+    takeEvery(AppTypes.GET_PROFILES, setProfilesSagas, api)
   ])
 }
