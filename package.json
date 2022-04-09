@@ -9,7 +9,7 @@
     "babel-loader": "^8.0.4",
     "connected-react-router": "^4.5.0",
     "immutable": "^3.8.2",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "rc-form": "^2.2.6",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
